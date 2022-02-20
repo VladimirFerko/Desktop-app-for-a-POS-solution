@@ -1,0 +1,199 @@
+-- phpMyAdmin SQL Dump
+-- version 4.9.5
+-- https://www.phpmyadmin.net/
+--
+-- Hostiteľ: localhost:3306
+-- Čas generovania: Út 06.Apr 2021, 14:44
+-- Verzia serveru: 10.3.16-MariaDB
+-- Verzia PHP: 7.3.23
+
+SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+SET AUTOCOMMIT = 0;
+START TRANSACTION;
+SET time_zone = "+00:00";
+
+
+/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
+/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
+/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
+/*!40101 SET NAMES utf8mb4 */;
+
+--
+-- Databáza: `id15823902_miffer`
+--
+CREATE DATABASE IF NOT EXISTS `miffer` DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci;
+USE `miffer`;
+
+-- --------------------------------------------------------
+
+--
+-- Štruktúra tabuľky pre tabuľku `dokoncenaobjednavka`
+--
+
+CREATE TABLE `dokoncenaobjednavka` (
+  `id` int(11) NOT NULL,
+  `id_stol` int(11) NOT NULL,
+  `datumcas` datetime NOT NULL DEFAULT current_timestamp(),
+  `cena` decimal(5,2) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Štruktúra tabuľky pre tabuľku `objednavka`
+--
+
+CREATE TABLE `objednavka` (
+  `id` int(11) NOT NULL,
+  `id_stol` int(11) NOT NULL,
+  `id_tovar` int(11) NOT NULL,
+  `stav` int(11) DEFAULT NULL,
+  `datumcas` datetime NOT NULL DEFAULT current_timestamp(),
+  `poznamka` varchar(150) COLLATE utf8_unicode_ci DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Sťahujem dáta pre tabuľku `objednavka`
+--
+
+INSERT INTO `objednavka` (`id`, `id_stol`, `id_tovar`, `stav`, `datumcas`, `poznamka`) VALUES
+(82, 1, 1, 1, '2021-01-22 10:50:44', 'Bez cukru'),
+(83, 1, 2, 1, '2021-01-22 10:50:53', 'Extra cukor'),
+(84, 1, 3, 1, '2021-01-22 10:51:03', ''),
+(86, 1, 10, 1, '2021-01-22 10:51:10', ''),
+(87, 1, 6, 1, '2021-01-22 10:51:26', ''),
+(106, 1, 1, 0, '2021-04-03 10:15:02', ''),
+(110, 1, 1, 0, '2021-04-03 11:39:34', ''),
+(115, 4, 1, 0, '2021-04-04 16:51:54', '');
+
+-- --------------------------------------------------------
+
+--
+-- Štruktúra tabuľky pre tabuľku `tovar`
+--
+
+CREATE TABLE `tovar` (
+  `id` int(11) NOT NULL,
+  `nazov` varchar(20) COLLATE utf8_unicode_ci NOT NULL,
+  `cena` decimal(5,2) NOT NULL,
+  `mnozstvo` int(11) NOT NULL,
+  `popis` varchar(85) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `kategoria` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Sťahujem dáta pre tabuľku `tovar`
+--
+
+INSERT INTO `tovar` (`id`, `nazov`, `cena`, `mnozstvo`, `popis`, `kategoria`) VALUES
+(1, 'Espreso', 1.50, 16, NULL, 1),
+(2, 'Čierna káva', 1.70, 18, NULL, 1),
+(3, 'Latte', 1.45, 22, NULL, 1),
+(4, 'Capuccino', 1.35, 19, NULL, 1),
+(5, 'Macchiato', 2.00, 19, NULL, 1),
+(6, 'Kremeš', 3.20, 22, NULL, 3),
+(7, 'Tiramisu', 2.80, 24, NULL, 3),
+(8, 'Mascarpone', 2.65, 23, NULL, 3),
+(9, 'Čokoládová Roláda', 4.20, 24, NULL, 3),
+(10, 'Bábovka', 1.30, 23, NULL, 3),
+(11, 'Coca-Cola', 0.90, 0, NULL, 2),
+(12, 'Fanta', 1.20, 21, NULL, 2),
+(13, 'Sprite', 0.85, 23, NULL, 2),
+(14, 'Mirinda', 1.20, 24, NULL, 2),
+(15, '7up', 0.80, 24, NULL, 2);
+
+-- --------------------------------------------------------
+
+--
+-- Štruktúra tabuľky pre tabuľku `zamestnanec`
+--
+
+CREATE TABLE `zamestnanec` (
+  `id_zamestnanec` int(11) NOT NULL,
+  `prihlasovacie_meno` varchar(25) COLLATE utf8_unicode_ci NOT NULL,
+  `heslo` varchar(15) COLLATE utf8_unicode_ci NOT NULL,
+  `meno` varchar(25) COLLATE utf8_unicode_ci NOT NULL,
+  `priezvisko` varchar(30) COLLATE utf8_unicode_ci NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Sťahujem dáta pre tabuľku `zamestnanec`
+--
+
+INSERT INTO `zamestnanec` (`id_zamestnanec`, `prihlasovacie_meno`, `heslo`, `meno`, `priezvisko`) VALUES
+(1, 'Michalik', 'KR4f8g', 'Kristián', 'Michalik'),
+(2, 'Ferko', 'ER9of8', 'Vladimír', 'Ferko'),
+(3, 'root', 'ER9of8', 'root', 'root'),
+(4, '0', '0', '0', '0');
+
+--
+-- Kľúče pre exportované tabuľky
+--
+
+--
+-- Indexy pre tabuľku `dokoncenaobjednavka`
+--
+ALTER TABLE `dokoncenaobjednavka`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexy pre tabuľku `objednavka`
+--
+ALTER TABLE `objednavka`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `id_tovar` (`id_tovar`);
+
+--
+-- Indexy pre tabuľku `tovar`
+--
+ALTER TABLE `tovar`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexy pre tabuľku `zamestnanec`
+--
+ALTER TABLE `zamestnanec`
+  ADD PRIMARY KEY (`id_zamestnanec`);
+
+--
+-- AUTO_INCREMENT pre exportované tabuľky
+--
+
+--
+-- AUTO_INCREMENT pre tabuľku `dokoncenaobjednavka`
+--
+ALTER TABLE `dokoncenaobjednavka`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+
+--
+-- AUTO_INCREMENT pre tabuľku `objednavka`
+--
+ALTER TABLE `objednavka`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=120;
+
+--
+-- AUTO_INCREMENT pre tabuľku `tovar`
+--
+ALTER TABLE `tovar`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
+
+--
+-- AUTO_INCREMENT pre tabuľku `zamestnanec`
+--
+ALTER TABLE `zamestnanec`
+  MODIFY `id_zamestnanec` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+
+--
+-- Obmedzenie pre exportované tabuľky
+--
+
+--
+-- Obmedzenie pre tabuľku `objednavka`
+--
+ALTER TABLE `objednavka`
+  ADD CONSTRAINT `objednavka_ibfk_1` FOREIGN KEY (`id_tovar`) REFERENCES `tovar` (`id`);
+COMMIT;
+
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
+/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;

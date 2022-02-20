@@ -1,0 +1,9 @@
+============================== 
+        	Miffer Caffe   
+    tovar:             	cena:   
+    Espreso			1.50 €
+Èierna káva		1.70 €
+------------------------------
+    platba :           	3.20 €
+    platba kartou - akceptovaná
+    ==============================      
